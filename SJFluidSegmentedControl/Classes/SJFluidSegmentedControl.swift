@@ -228,7 +228,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
     }
     
     /// The index of the currently selected segment. It ranges from 0 to segmentsCount-1.
-    open var currentSegment: Int = 0 {
+    @objc open var currentSegment: Int = 0 {
         didSet {
             if currentSegment != oldValue {
                 setCurrentSegmentIndex(currentSegment, animated: false)
@@ -237,10 +237,10 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
     }
     
     /// The number of segments in the segmented control. Default is `1`.
-    fileprivate(set) public var segmentsCount: Int = 1
+    @objc fileprivate(set) public var segmentsCount: Int = 1
     
     /// The transition style between the default and selected state of the segments. Default is `.fade`.
-    open var transitionStyle: SJFluidSegmentedControlTransitionStyle = .fade {
+    @objc open var transitionStyle: SJFluidSegmentedControlTransitionStyle = .fade {
         didSet {
             if segmentsCount > 0 {
                 updateTransitionStyle()
@@ -249,7 +249,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
     }
     
     /// The style of the selecton shape. Default is `.liquid`.
-    open var shapeStyle: SJFluidSegmentedControlShapeStyle = .liquid
+    @objc open var shapeStyle: SJFluidSegmentedControlShapeStyle = .liquid
     
     /// The corner radius of the segmented control. Default is `0.0`.
     @IBInspectable open var cornerRadius: CGFloat = 0.0 {
@@ -269,7 +269,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
     @IBInspectable open var selectedSegmentTextColor: UIColor = .white
     
     /// The text font for the titles of the segmented control in both states if the data source does not provide attributed titles or views. Default is `.systemFont(ofSize: 14)`.
-    open var textFont: UIFont = .systemFont(ofSize: 14) {
+    @objc open var textFont: UIFont = .systemFont(ofSize: 14) {
         didSet {
             reinstallViews()
         }
@@ -344,7 +344,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                                 toItem: self, attribute: .left,
                                                 multiplier: 1.0,
                                                 constant: 0.0)
-        leftConstraint.priority = UILayoutPriorityDefaultHigh
+        leftConstraint.priority = UILayoutPriority.defaultHigh
         self.addConstraint(leftConstraint)
         self.addConstraint(NSLayoutConstraint(item: $0, attribute: .right,
                                               relatedBy: .equal,
@@ -373,7 +373,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                                  toItem: self, attribute: .right,
                                                  multiplier: 1.0,
                                                  constant: 0.0)
-        rightConstraint.priority = UILayoutPriorityDefaultHigh
+        rightConstraint.priority = UILayoutPriority.defaultHigh
         self.addConstraint(rightConstraint)
         self.addConstraint(NSLayoutConstraint(item: $0, attribute: .left,
                                               relatedBy: .equal,
@@ -990,7 +990,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
             colors = [gradientBounceColor]
         }
         if colors!.count == 1 {
-            colors?.append((colors?.first)!)
+            colors!.append((colors?.first)!)
         }
         return colors!
     }
@@ -1037,7 +1037,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
     ///
     /// - parameter index:         The index of the currently selected segment.
     /// - parameter shouldAnimate: `true` if the change should be animated, otherwise `false`.
-    public func setCurrentSegmentIndex(_ index: Int, animated shouldAnimate: Bool) {
+    @objc public func setCurrentSegmentIndex(_ index: Int, animated shouldAnimate: Bool) {
         assert(dataSource != nil,
                "Data source of segmented control: \(self) wasn't set. In order to use segmented control, set its data source.")
         assert(index < segmentsCount && index >= 0,
@@ -1444,7 +1444,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
     
     
     /// Reloads the segments of the segmented control.
-    open func reloadData() {
+    @objc open func reloadData() {
         guard let dataSource = dataSource else {
             print("Cannot reload segmented control without specified data source.")
             return
