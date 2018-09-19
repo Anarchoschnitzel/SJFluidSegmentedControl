@@ -54,14 +54,14 @@ import UIKit
 
 /// SJFluidSegmentedControl Data Source Protocol
 @objc public protocol SJFluidSegmentedControlDataSource: class {
-    
+
     /// **Required.** Tells the data source to return the number of segments in a segmented control.
     ///
     /// - parameter segmentedControl: The segmented control object requesting this information.
     ///
     /// - returns: The number of segments.
     func numberOfSegmentsInSegmentedControl(_ segmentedControl: SJFluidSegmentedControl) -> Int
-    
+
     /// Asks the data source for the gradient colors of a selected segment in a segmented control.
     ///
     /// - parameter segmentedControl: The segmented control object asking for the gradient colors.
@@ -70,7 +70,7 @@ import UIKit
     /// - returns: An array of colors to form a gradient.
     @objc optional func segmentedControl(_ segmentedControl: SJFluidSegmentedControl,
                                          gradientColorsForSelectedSegmentAtIndex index: Int) -> [UIColor]
-    
+
     /// Asks the data source for the gradient colors for bounce in a segmented control.
     ///
     /// - parameter segmentedControl: The segmented control object asking for the gradient colors.
@@ -79,7 +79,7 @@ import UIKit
     /// - returns: An array of colors to form a gradient.
     @objc optional func segmentedControl(_ segmentedControl: SJFluidSegmentedControl,
                                          gradientColorsForBounce bounce: SJFluidSegmentedControlBounce) -> [UIColor]
-    
+
     /// Asks the data source for the title of a segment at an index in a segmented control.
     ///
     /// - parameter segmentedControl: The segmented control object asking for the title.
@@ -88,7 +88,7 @@ import UIKit
     /// - returns: A string to use as the title of a segment. If you return `nil`, the segment will have no title.
     @objc optional func segmentedControl(_ segmentedControl: SJFluidSegmentedControl,
                                          titleForSegmentAtIndex index: Int) -> String?
-    
+
     /// Asks the data source for an attributed title of a segment at an index in a segmented control.
     ///
     /// - parameter segmentedControl: The segmented control object asking for the attributed title.
@@ -97,7 +97,7 @@ import UIKit
     /// - returns: An attributed string to use as the title of a segment. If you return `nil`, the segment will have no title.
     @objc optional func segmentedControl(_ segmentedControl: SJFluidSegmentedControl,
                                          attributedTitleForSegmentAtIndex index: Int) -> NSAttributedString?
-    
+
     /// Asks the data source for the title of a selected segment at an index in a segmented control.
     ///
     /// - parameter segmentedControl: The segmented control object asking for the title.
@@ -106,7 +106,7 @@ import UIKit
     /// - returns: A string to use as the title of the selected segment. If you return `nil`, the segment will have no title.
     @objc optional func segmentedControl(_ segmentedControl: SJFluidSegmentedControl,
                                          titleForSelectedSegmentAtIndex index: Int) -> String?
-    
+
     /// Asks the data source for the attributed title of a selected segment at an index in a segmented control.
     ///
     /// - parameter segmentedControl: The segmented control object asking for the attributed title.
@@ -115,7 +115,7 @@ import UIKit
     /// - returns: An attributed string to use as the title of the selected segment. If you return `nil`, the segment will have no title.
     @objc optional func segmentedControl(_ segmentedControl: SJFluidSegmentedControl,
                                          attributedTitleForSelectedSegmentAtIndex index: Int) -> NSAttributedString?
-    
+
     /// Asks the data source for a color for the title of a selected segment at an index in a segmented control.
     ///
     /// - parameter segmentedControl: The segmented control object asking for the selected title color.
@@ -124,7 +124,7 @@ import UIKit
     /// - returns: A color to use as a foreground color for the selected segment's title.
     @objc optional func segmentedControl(_ segmentedControl: SJFluidSegmentedControl,
                                          titleColorForSelectedSegmentAtIndex index: Int) -> UIColor
-    
+
     /// Asks the data source for a view of a segment at an index in a segmented control.
     ///
     /// - parameter segmentedControl: The segmented control object asking for the view.
@@ -133,7 +133,7 @@ import UIKit
     /// - returns: A view for the segment.
     @objc optional func segmentedControl(_ segmentedControl: SJFluidSegmentedControl,
                                          viewForSegmentAtIndex index: Int) -> UIView
-    
+
     /// Asks the data source for a view of a selected segment at an index in a segmented control.
     ///
     /// - parameter segmentedControl: The segmented control object asking for the view.
@@ -146,7 +146,7 @@ import UIKit
 
 /// SJFluidSegmentedControl Delegate Protocol
 @objc public protocol SJFluidSegmentedControlDelegate: class {
-    
+
     /// Tells the delegate that the segmented control's selected segment index changed.
     ///
     /// - parameter segmentedControl: A segmented control object informing the delegate about the new index change.
@@ -155,21 +155,21 @@ import UIKit
     @objc optional func segmentedControl(_ segmentedControl: SJFluidSegmentedControl,
                                          didChangeFromSegmentAtIndex fromIndex: Int,
                                          toSegmentAtIndex toIndex:Int)
-    
+
     /// Tells the delegate the the segmented control's selected segment index is about to be changed.
     ///
     /// - parameter segmentedControl: A segmented control object informing the delegate about the impending index change.
     /// - parameter fromSegment:      The segment index **from** which the selection changed.
     @objc optional func segmentedControl(_ segmentedControl: SJFluidSegmentedControl,
                                          willChangeFromSegment fromSegment: Int)
-    
+
     /// Tells the delegate that the segmented control's offset changed.
     ///
     /// - parameter segmentedControl: The segmented control object that performed the scrolling operation.
     /// - parameter offset:           The `x` coordinate of the offset.
     @objc optional func segmentedControl(_ segmentedControl: SJFluidSegmentedControl,
                                          didScrollWithXOffset offset: CGFloat)
-    
+
     /// Asks the delegate to setup a segment with a custom transition style.
     ///
     /// - parameter segmentedControl:      The segmented control object asking for the custom transition.
@@ -182,7 +182,7 @@ import UIKit
                                          unselectedView unselectedSegmentView: UIView,
                                          selectedView selectedSegmentView: UIView,
                                          withSelectionPercent percent: CGFloat)
-    
+
     /// Asks the delegate to reset all customization that has been done in segmentedControl(_:setupSegmentAtIndex:unselectedView:selectedView:withSelectionPercent:). This method is intended for handling switching between transition styles.
     ///
     /// - parameter segmentedControl:      The segmented control object asking the reset.
@@ -197,9 +197,9 @@ import UIKit
 
 /// A segmented control with custom appearance and interactive animations.
 public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
-    
+
     // MARK: Public properties
-    
+
     /// The object that acts as the data source of the segmented control.
     @IBOutlet weak open var dataSource: AnyObject? {
         didSet {
@@ -213,7 +213,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
             }
         }
     }
-    
+
     /// The object that acts as the delegate of the segmented control.
     @IBOutlet weak open var delegate: AnyObject? {
         didSet {
@@ -226,31 +226,31 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
             }
         }
     }
-    
+
     /// The index of the currently selected segment. It ranges from 0 to segmentsCount-1.
-    open var currentSegment: Int = 0 {
+    @objc open var currentSegment: Int = 0 {
         didSet {
             if currentSegment != oldValue {
                 setCurrentSegmentIndex(currentSegment, animated: false)
             }
         }
     }
-    
+
     /// The number of segments in the segmented control. Default is `1`.
-    fileprivate(set) public var segmentsCount: Int = 1
-    
+    @objc fileprivate(set) public var segmentsCount: Int = 1
+
     /// The transition style between the default and selected state of the segments. Default is `.fade`.
-    open var transitionStyle: SJFluidSegmentedControlTransitionStyle = .fade {
+    @objc open var transitionStyle: SJFluidSegmentedControlTransitionStyle = .fade {
         didSet {
             if segmentsCount > 0 {
                 updateTransitionStyle()
             }
         }
     }
-    
+
     /// The style of the selecton shape. Default is `.liquid`.
-    open var shapeStyle: SJFluidSegmentedControlShapeStyle = .liquid
-    
+    @objc open var shapeStyle: SJFluidSegmentedControlShapeStyle = .liquid
+
     /// The corner radius of the segmented control. Default is `0.0`.
     @IBInspectable open var cornerRadius: CGFloat = 0.0 {
         didSet {
@@ -261,44 +261,44 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
             selectorView.layer.cornerRadius = applyCornerRadiusToSelectorView ? cornerRadius : 0.0
         }
     }
-    
+
     /// The color of the text for the default state of a segment. Default is `.black`. This property will be overriden if the delegate for attributed titles/views is implemented.
     @IBInspectable open var textColor: UIColor = .black
-    
+
     /// The color of the text for the selected state of a segment. Default is `.white`. This property will be overriden if the delegate for attributed titles for selected state or views for selected state is implemented.
     @IBInspectable open var selectedSegmentTextColor: UIColor = .white
-    
+
     /// The text font for the titles of the segmented control in both states if the data source does not provide attributed titles or views. Default is `.systemFont(ofSize: 14)`.
-    open var textFont: UIFont = .systemFont(ofSize: 14) {
+    @objc open var textFont: UIFont = .systemFont(ofSize: 14) {
         didSet {
             reinstallViews()
         }
     }
-    
+
     /// The color of the selector. Default is `.clear`. **Note:** If set, it is overlayed over the gradient colors.
     @IBInspectable open var selectorViewColor: UIColor = .clear {
         didSet {
             selectorView.backgroundColor = selectorViewColor
         }
     }
-    
+
     /// A boolean value to determine whether the selector should have rounded corners. Default is `false`.
     @IBInspectable open var applyCornerRadiusToSelectorView: Bool = false
-    
+
     /// The color for the bounce if the data source does not provide colors for bounces. Default is `.red`.
     @IBInspectable open var gradientBounceColor: UIColor = .red
-    
+
     /// The duration of the show shadow animation. Default is `0.5`.
     @IBInspectable open var shadowShowDuration: CGFloat = 0.5
-    
+
     /// The duration of the hide shadow animation. Default is `0.8`.
     @IBInspectable open var shadowHideDuration: CGFloat = 0.8
-    
+
     /// A boolean value to determine whether shadows should be applied. Default is `true`.
     @IBInspectable open var shadowsEnabled: Bool = true
-    
+
     // MARK: - Private properties
-    
+
     fileprivate lazy var scrollView: UIScrollView = {
         [unowned self] in
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -310,21 +310,21 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         self.bringSubview(toFront: $0)
         return $0
     }(UIScrollView(frame: .zero))
-    
+
     fileprivate lazy var leftSpacerView: UIView = {
         [unowned self] in
         $0.translatesAutoresizingMaskIntoConstraints = false
         self.scrollView.addSubview($0)
         return $0
     }(UIView(frame: .zero))
-    
+
     fileprivate lazy var rightSpacerView: UIView = {
         [unowned self] in
         $0.translatesAutoresizingMaskIntoConstraints = false
         self.scrollView.addSubview($0)
         return $0
     }(UIView(frame: .zero))
-    
+
     fileprivate lazy var selectorView: UIView = {
         [unowned self] in
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -334,7 +334,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         $0.backgroundColor = self.selectorViewColor
         return $0
     }(UIView(frame: .zero))
-    
+
     fileprivate lazy var leftLimiterView: UIView = {
         [unowned self] in
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -363,7 +363,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                               constant: 0.0))
         return $0
     }(UIView(frame: .zero))
-    
+
     fileprivate lazy var rightLimiterView: UIView = {
         [unowned self] in
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -392,7 +392,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                               constant: 0.0))
         return $0
     }(UIView(frame: .zero))
-    
+
     fileprivate lazy var shadowView: UIView = {
         [unowned self] in
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -427,7 +427,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         self.addConstraint(constraint)
         return $0
     }(UIView(frame: .zero))
-    
+
     fileprivate lazy var gradientView: SJGradientView = {
         [unowned self] in
         let fakeView = UIView(frame: .zero)
@@ -461,7 +461,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         self.gradientViewContainer = fakeView
         return gradientView
     }()
-    
+
     fileprivate var gradientViewContainer: UIView?
     fileprivate lazy var segmentViewContainers = [UIView]()
     fileprivate lazy var segmentViews = [UIView]()
@@ -482,9 +482,9 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
     fileprivate lazy var addedConstraintsToRemove = [NSLayoutConstraint]()
     fileprivate var didViewLayoutSubviews: Bool = false
     fileprivate var wereLayoutDependantValuesUpdated = false
-    
+
     // MARK: - Initialization
-    
+
     /// Initializes the segmented control with a specified frame rectangle.
     ///
     /// - Parameter frame: The frame rectangle for the segmented control view, measured in points.
@@ -492,7 +492,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         super.init(frame: frame)
         commonInit()
     }
-    
+
     /// Returns an object initialized from data in a given unarchiver.
     ///
     /// - Parameter aDecoder: An unarchiver object.
@@ -500,13 +500,13 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         super.init(coder: aDecoder)
         commonInit()
     }
-    
+
     fileprivate func commonInit() {
         self.clipsToBounds = true
         self.layer.masksToBounds = false
         initViewsAndGestureRecognizers()
     }
-    
+
     fileprivate func initViewsAndGestureRecognizers() {
         let _ = scrollView
         let _ = leftSpacerView
@@ -518,9 +518,9 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         let _ = shadowView
         setupTapGestureRecogniers()
     }
-    
+
     // MARK: - View Lifecycle
-    
+
     /// Lays out subviews.
     override public func layoutSubviews() {
         super.layoutSubviews()
@@ -530,9 +530,9 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
             updateLayoutDependantValues()
         }
     }
-    
+
     // MARK: - Setup Gesture Recognizers
-    
+
     fileprivate func setupTapGestureRecogniers() {
         let leftTapRecognizer = UITapGestureRecognizer(target: self,
                                                        action: #selector(self.tapWasRecognized(_:)))
@@ -541,18 +541,18 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                                         action: #selector(self.tapWasRecognized(_:)))
         rightLimiterView.addGestureRecognizer(rightTapRecognizer)
     }
-    
+
     @objc fileprivate func tapWasRecognized(_ recognizer: UITapGestureRecognizer) {
         let point = recognizer.location(in: self)
         self.isUserInteractionEnabled = false
         setCurrentSegmentIndex(segmentFromTapPoint(point), animated: true)
     }
-    
+
     // MARK: - Setup Constraints
-    
+
     fileprivate func setupLeftSpacerViewConstraints() {
         var constraint: NSLayoutConstraint
-        
+
         constraint = NSLayoutConstraint(item: leftSpacerView, attribute: .height,
                                         relatedBy: .equal,
                                         toItem: self, attribute: .height,
@@ -560,7 +560,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         self.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: leftSpacerView, attribute: .width,
                                         relatedBy: .equal,
                                         toItem: self, attribute: .width,
@@ -568,7 +568,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         self.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: leftSpacerView, attribute: .left,
                                         relatedBy: .equal,
                                         toItem: scrollView, attribute: .left,
@@ -576,7 +576,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         scrollView.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: leftSpacerView, attribute: .top,
                                         relatedBy: .equal,
                                         toItem: scrollView, attribute: .top,
@@ -584,7 +584,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         scrollView.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: leftSpacerView, attribute: .bottom,
                                         relatedBy: .equal,
                                         toItem: scrollView, attribute: .bottom,
@@ -593,10 +593,10 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         scrollView.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
     }
-    
+
     fileprivate func setupSelectorViewConstraints() {
         var constraint: NSLayoutConstraint
-        
+
         constraint = NSLayoutConstraint(item: selectorView, attribute: .height,
                                         relatedBy: .equal,
                                         toItem: self, attribute: .height,
@@ -604,7 +604,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         self.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: selectorView, attribute: .width,
                                         relatedBy: .equal,
                                         toItem: self, attribute: .width,
@@ -612,7 +612,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         self.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: selectorView, attribute: .left,
                                         relatedBy: .equal,
                                         toItem: leftSpacerView, attribute: .right,
@@ -620,7 +620,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         scrollView.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: selectorView, attribute: .top,
                                         relatedBy: .equal,
                                         toItem: scrollView, attribute: .top,
@@ -628,7 +628,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         scrollView.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: selectorView, attribute: .bottom,
                                         relatedBy: .equal,
                                         toItem: scrollView, attribute: .bottom,
@@ -637,10 +637,10 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         scrollView.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
     }
-    
+
     fileprivate func setupRightSpacerViewConstraints() {
         var constraint: NSLayoutConstraint
-        
+
         constraint = NSLayoutConstraint(item: rightSpacerView, attribute: .height,
                                         relatedBy: .equal,
                                         toItem: self, attribute: .height,
@@ -648,7 +648,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         self.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: rightSpacerView, attribute: .width,
                                         relatedBy: .equal,
                                         toItem: self, attribute: .width,
@@ -656,7 +656,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         self.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: rightSpacerView, attribute: .left,
                                         relatedBy: .equal,
                                         toItem: selectorView, attribute: .right,
@@ -664,7 +664,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         scrollView.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: rightSpacerView, attribute: .right,
                                         relatedBy: .equal,
                                         toItem: scrollView, attribute: .right,
@@ -672,7 +672,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         scrollView.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: rightSpacerView, attribute: .top,
                                         relatedBy: .equal,
                                         toItem: scrollView, attribute: .top,
@@ -680,7 +680,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         scrollView.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: rightSpacerView, attribute: .bottom,
                                         relatedBy: .equal,
                                         toItem: scrollView, attribute: .bottom,
@@ -689,10 +689,10 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         scrollView.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
     }
-    
+
     fileprivate func setupScrollViewConstraints() {
         var constraint: NSLayoutConstraint
-        
+
         constraint = NSLayoutConstraint(item: scrollView, attribute: .left,
                                         relatedBy: .equal,
                                         toItem: self, attribute: .left,
@@ -700,7 +700,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         self.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: scrollView, attribute: .width,
                                         relatedBy: .equal,
                                         toItem: self, attribute: .width,
@@ -708,7 +708,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         self.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: self, attribute: .bottom,
                                         relatedBy: .equal,
                                         toItem: scrollView, attribute: .bottom,
@@ -716,7 +716,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         self.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: self, attribute: .top,
                                         relatedBy: .equal,
                                         toItem: scrollView,
@@ -726,10 +726,10 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         self.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
     }
-    
+
     fileprivate func setupGradientViewConstraints() {
         var constraint: NSLayoutConstraint
-        
+
         constraint = NSLayoutConstraint(item: gradientView, attribute: .top,
                                         relatedBy: .equal,
                                         toItem: self, attribute: .top,
@@ -737,7 +737,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         self.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: gradientView, attribute: .bottom,
                                         relatedBy: .equal,
                                         toItem: self, attribute: .bottom,
@@ -745,7 +745,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         self.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: gradientView, attribute: .width,
                                         relatedBy: .equal,
                                         toItem: self, attribute: .width,
@@ -754,7 +754,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         self.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         gradientViewLeftConstraint = NSLayoutConstraint(item: gradientView, attribute: .left,
                                                         relatedBy: .equal,
                                                         toItem: self, attribute: .left,
@@ -763,10 +763,10 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         self.addConstraint(gradientViewLeftConstraint!)
         addedConstraintsToRemove.append(gradientViewLeftConstraint!)
     }
-    
+
     fileprivate func setupConstraintsForFirstView(_ view: UIView) {
         var constraint: NSLayoutConstraint
-        
+
         constraint = NSLayoutConstraint(item: view, attribute: .left,
                                         relatedBy: .equal,
                                         toItem: view.superview, attribute: .left,
@@ -774,7 +774,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         view.superview?.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: view, attribute: .top,
                                         relatedBy: .equal,
                                         toItem: view.superview, attribute: .top,
@@ -782,7 +782,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         view.superview?.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: view, attribute: .bottom,
                                         relatedBy: .equal,
                                         toItem: view.superview, attribute: .bottom,
@@ -791,10 +791,10 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         view.superview?.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
     }
-    
+
     fileprivate func setupConstraintsForView(_ view: UIView, withPreviousView previousView: UIView) {
         var constraint: NSLayoutConstraint
-        
+
         constraint = NSLayoutConstraint(item: view, attribute: .left,
                                         relatedBy: .equal,
                                         toItem: previousView, attribute: .right,
@@ -802,7 +802,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         view.superview?.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: view, attribute: .top,
                                         relatedBy: .equal,
                                         toItem: view.superview, attribute: .top,
@@ -810,7 +810,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         view.superview?.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: view, attribute: .bottom,
                                         relatedBy: .equal,
                                         toItem: view.superview, attribute: .bottom,
@@ -818,7 +818,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         view.superview?.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: view, attribute: .width,
                                         relatedBy: .equal,
                                         toItem: previousView, attribute: .width,
@@ -827,10 +827,10 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         view.superview?.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
     }
-    
+
     fileprivate func setupConstraintsForView(_ view: UIView, withContainer container: UIView) {
         var constraint: NSLayoutConstraint
-        
+
         constraint = NSLayoutConstraint(item: container, attribute: .left,
                                         relatedBy: .equal,
                                         toItem: view, attribute: .left,
@@ -838,7 +838,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         container.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: container, attribute: .top,
                                         relatedBy: .equal,
                                         toItem: view, attribute: .top,
@@ -846,7 +846,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         container.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: container, attribute: .right,
                                         relatedBy: .equal,
                                         toItem: view, attribute: .right,
@@ -854,7 +854,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         container.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         constraint = NSLayoutConstraint(item: container, attribute: .bottom,
                                         relatedBy: .equal,
                                         toItem: view, attribute: .bottom,
@@ -863,10 +863,10 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         container.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
     }
-    
+
     fileprivate func setupRightConstraintForLastView(_ view: UIView) {
         var constraint: NSLayoutConstraint
-        
+
         constraint = NSLayoutConstraint(item: view, attribute: .right,
                                         relatedBy: .equal,
                                         toItem: view.superview, attribute: .right,
@@ -874,7 +874,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                         constant: 0.0)
         view.superview?.addConstraint(constraint)
         addedConstraintsToRemove.append(constraint)
-        
+
         var widthConstraintIsInstalled = false
         if let constraints = view.superview?.constraints {
             for constraint in constraints {
@@ -893,28 +893,28 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
             view.superview?.addConstraint(constraint)
             addedConstraintsToRemove.append(constraint)
         }
-        
+
     }
-    
+
     // MARK: - Gradient Setup
-    
+
     fileprivate func setupGradientWithPercent(_ percent: CGFloat, offsetFactor factor: CGFloat) {
         if (gradientView.layer.mask == nil) {
             gradientView.layer.mask = CAShapeLayer()
         }
-        
+
         let leftSideOfExpression = (-1 - factor * CGFloat(segmentsCount)) * selectorView.bounds.width *
             (1 + gradientBackVelocity)
         let rightSideOfExpression = selectorView.bounds.width * factor * CGFloat(segmentsCount)
         gradientViewLeftConstraint?.constant = leftSideOfExpression + rightSideOfExpression
-        
+
         if let gradientViewLeftConstraint = gradientViewLeftConstraint {
             var transform = CGAffineTransform(translationX: -gradientViewLeftConstraint.constant + selectorView.bounds.width * factor * CGFloat(segmentsCount), y: 0)
             let shapeLayer = gradientView.layer.mask as! CAShapeLayer
             shapeLayer.path = pathForSelectorViewFromPercentage(percent).copy(using: &transform)
         }
     }
-    
+
     fileprivate func setupGradientViewWithCount(_ count: Int) {
         var locations = [CGFloat]()
         var colors = [CGColor]()
@@ -926,7 +926,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         gradientViewGradientLayer.startPoint = CGPoint(x: 0, y: 0)
         gradientViewGradientLayer.endPoint = CGPoint(x: 1, y: 0)
     }
-    
+
     fileprivate func setupColors(_ colors: inout [CGColor], withCount count: Int) {
         for index in -1 ... count {
             var segmentColors = [UIColor]()
@@ -947,7 +947,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
             }
         }
     }
-    
+
     fileprivate func setupLocations(_ locations: inout [CGFloat], withCount count: Int) {
         for index in -1 ... count {
             var segmentColors = [UIColor]()
@@ -971,7 +971,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
             }
         }
     }
-    
+
     fileprivate func gradientColorForSegmentAtIndex(_ index: Int) -> [UIColor] {
         if let dataSource = dataSource, let gradientColors = dataSource.segmentedControl?(self, gradientColorsForSelectedSegmentAtIndex: index) {
             var array = gradientColors
@@ -982,7 +982,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         }
         return [selectorViewColor, selectorViewColor]
     }
-    
+
     fileprivate func gradientColorForBounce(_ bounce: SJFluidSegmentedControlBounce) -> [UIColor] {
         var colors: [UIColor]?
         colors = dataSource?.segmentedControl?(self, gradientColorsForBounce: bounce)
@@ -990,21 +990,20 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
             colors = [gradientBounceColor]
         }
         if colors!.count == 1 {
-            let firstColor = (colors?.first)!
-            colors?.append(firstColor)
+            colors!.append((colors?.first)!)
         }
         return colors!
     }
-    
+
     // MARK: - Shadow Setup
-    
+
     fileprivate func shadowColorForSegmentAtIndex(_ index: Int) -> UIColor {
         if let gradientColor = dataSource?.segmentedControl?(self, gradientColorsForSelectedSegmentAtIndex: index).first {
             return gradientColor
         }
         return selectorViewColor
     }
-    
+
     fileprivate func setupShadowForSegmentAtIndex(_ index: Int, visible isVisible: Bool, animated shouldAnimate: Bool) {
         shadowView.layer.shadowColor = shadowColorForSegmentAtIndex(index).cgColor
         shadowView.layer.shadowRadius = 7.0
@@ -1022,9 +1021,9 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
             shadowView.layer.shadowOpacity = isVisible ? 0.7 : 0.0
         }
     }
-    
+
     // MARK: - Segments
-    
+
     fileprivate func changeSegmentToSegmentAtIndex(_ index: Int) {
         let fromSegment = currentSegment
         currentSegment = index
@@ -1033,17 +1032,17 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         }
         delegate?.segmentedControl?(self, didChangeFromSegmentAtIndex: fromSegment, toSegmentAtIndex: index)
     }
-    
+
     /// Sets the currently selected segment.
     ///
     /// - parameter index:         The index of the currently selected segment.
     /// - parameter shouldAnimate: `true` if the change should be animated, otherwise `false`.
-    public func setCurrentSegmentIndex(_ index: Int, animated shouldAnimate: Bool) {
+    @objc public func setCurrentSegmentIndex(_ index: Int, animated shouldAnimate: Bool) {
         assert(dataSource != nil,
                "Data source of segmented control: \(self) wasn't set. In order to use segmented control, set its data source.")
         assert(index < segmentsCount && index >= 0,
                "Unable to set segment \(index). Segmented control has only \(segmentsCount) segments, from 0 to \(segmentsCount - 1)")
-        
+
         if !shouldAnimate {
             currentSegment = index
             if shadowsEnabled {
@@ -1052,9 +1051,9 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         }
         scrollView.setContentOffset(offsetFromSegment(index), animated: shouldAnimate)
     }
-    
+
     // MARK: - Segment Views Setup
-    
+
     fileprivate func setupSelectedLabel(_ label: UILabel, forSegmentAtIndex index: Int) {
         if (dataSource?.segmentedControl?(self, titleForSelectedSegmentAtIndex: index)) != nil {
             label.text = dataSource?.segmentedControl?(self, titleForSelectedSegmentAtIndex: index)
@@ -1070,7 +1069,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         }
         label.textAlignment = .center
     }
-    
+
     fileprivate func setupLabel(_ label: UILabel, forSegmentAtIndex index: Int, selected isSelected: Bool) {
         if isSelected && ((dataSource?.segmentedControl?(self, titleForSelectedSegmentAtIndex: index)) != nil &&
             dataSource?.segmentedControl?(self, attributedTitleForSelectedSegmentAtIndex: index) != nil) {
@@ -1095,7 +1094,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         }
         label.textAlignment = .center
     }
-    
+
     fileprivate func viewForSegmentAtIndex(_ index: Int) -> UIView {
         var view: UIView?
         view = dataSource?.segmentedControl?(self, viewForSegmentAtIndex: index)
@@ -1107,7 +1106,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         view?.translatesAutoresizingMaskIntoConstraints = false
         return view!
     }
-    
+
     fileprivate func selectedViewForSegmentAtIndex(_ index: Int) -> UIView {
         var view: UIView?
         view = dataSource?.segmentedControl?(self, viewForSelectedSegmentAtIndex: index)
@@ -1122,7 +1121,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         view?.translatesAutoresizingMaskIntoConstraints = false
         return view!
     }
-    
+
     fileprivate func setupSegmentViewAtIndex(_ index: Int, withSelectionPercent percent: CGFloat) {
         if percent < 1 && percent > -1 {
             changedViews.insert(index)
@@ -1147,15 +1146,15 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                     selectedView: selectedSegmentViewContainers[index],
                                     withSelectionPercent: percent)
     }
-    
+
     fileprivate func deselectSegmentAtIndex(_ index: Int) {
         setupSegmentViewAtIndex(index, withSelectionPercent: 1)
     }
-    
+
     fileprivate func selectSegmentAtIndex(_ index: Int) {
         setupSegmentViewAtIndex(index, withSelectionPercent: 0)
     }
-    
+
     fileprivate func resetSegmentViewAtIndex(_ index: Int) {
         let segmentView = segmentViewContainers[index]
         segmentView.alpha = 1.0
@@ -1166,7 +1165,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
                                     unselectedView: segmentView,
                                     selectedView: selectedSegmentView)
     }
-    
+
     fileprivate func setupSegmentViewsWithCount(_ count: Int) {
         for index in 0 ..< count {
             let viewContainer = UIView(frame: .zero)
@@ -1175,16 +1174,16 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
             viewContainer.backgroundColor = .clear
             self.addSubview(viewContainer)
             segmentViewContainers.append(viewContainer)
-            
+
             if index == 0 {
                 setupConstraintsForFirstView(viewContainer)
             } else {
                 setupConstraintsForView(viewContainer, withPreviousView: segmentViewContainers[index - 1])
             }
         }
-        
+
         setupRightConstraintForLastView(segmentViewContainers[count - 1])
-        
+
         for index in 0 ..< count {
             let view = viewForSegmentAtIndex(index)
             let viewContainer = segmentViewContainers[index]
@@ -1193,7 +1192,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
             setupConstraintsForView(view, withContainer: viewContainer)
         }
     }
-    
+
     fileprivate func setupSelectedSegmentViewsWithCount(_ count: Int) {
         for index in 0 ..< count {
             let viewContainer = UIView(frame: .zero)
@@ -1202,16 +1201,16 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
             viewContainer.backgroundColor = .clear
             self.insertSubview(viewContainer, aboveSubview: segmentViewContainers[index])
             selectedSegmentViewContainers.append(viewContainer)
-            
+
             if index == 0 {
                 setupConstraintsForFirstView(viewContainer)
             } else {
                 setupConstraintsForView(viewContainer, withPreviousView: selectedSegmentViewContainers[index - 1])
             }
         }
-        
+
         setupRightConstraintForLastView(selectedSegmentViewContainers[count - 1])
-        
+
         for index in 0 ..< count {
             let view = selectedViewForSegmentAtIndex(index)
             let viewContainer = selectedSegmentViewContainers[index]
@@ -1220,9 +1219,9 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
             setupConstraintsForView(view, withContainer: viewContainer)
         }
     }
-    
+
     // MARK: - Calculations
-    
+
     fileprivate func gradientLocationForBounce(_ bounce: SJFluidSegmentedControlBounce,
                                                colorIndex colorIdx: Int,
                                                colorsCount colorsCnt: Int,
@@ -1235,7 +1234,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
             return (CGFloat(totalCount - 1 + CGFloat(colorIdx)) / CGFloat(colorsCnt - 1)) / totalCount
         }
     }
-    
+
     fileprivate func gradientLocationForSegmentAtIndex(_ segmentIndex: Int,
                                                        colorIndex colorIdx: Int,
                                                        colorsCount colorsCnt: Int,
@@ -1244,7 +1243,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         let offset = CGFloat(1 + segmentIndex) + CGFloat(segmentIndex + 1) * gradientBackVelocity
         return (offset + CGFloat(colorIdx) / CGFloat(colorsCnt - 1)) / CGFloat(totalCount)
     }
-    
+
     fileprivate func pathForSelectorViewFromPercentage(_ percentage: CGFloat) -> CGPath {
         switch shapeStyle {
         case .roundedRect:
@@ -1253,7 +1252,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
             return dribblePathForSelectorViewFromPercentage(percentage).cgPath
         }
     }
-    
+
     fileprivate func dribblePathForSelectorViewFromPercentage(_ percentage: CGFloat) -> UIBezierPath {
         var newPercentage = percentage
         if newPercentage < 0 {
@@ -1265,25 +1264,25 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         var p4 = CGPoint(x: width - height / 2, y: F(1 - newPercentage) * height)
         var p2: CGPoint
         var p3: CGPoint
-        
+
         let p2x = height / 2 + (width - height) / 4
         let p2yLeftPartOfExpression = (p1.y * 3 + p4.y) / 4
-        
+
         let p3x = height / 2 + (width - height) * 3 / 4
         let p3yLeftPartOfExpression = (p1.y + p4.y * 3) / 4
-        
+
         let p2p3yRightPartOfExpression = height * 0.1 * (0.2 - fabs(0.5 - newPercentage)) / 0.2
         if newPercentage > 0.3 && newPercentage < 0.7 {
             let p2y = p2yLeftPartOfExpression + p2p3yRightPartOfExpression
             p2 = CGPoint(x: p2x, y: p2y)
-            
+
             let p3y = p3yLeftPartOfExpression + p2p3yRightPartOfExpression
             p3 = CGPoint(x: p3x, y: p3y)
         } else {
             p2 = CGPoint(x: p2x, y: p2yLeftPartOfExpression)
             p3 = CGPoint(x: p3x, y: p3yLeftPartOfExpression)
         }
-        
+
         let length = height / 4
         let coef: CGFloat = 1.2
         var p12vector = CGPoint(x: p2.x - p1.x, y: p2.y - p1.y)
@@ -1303,14 +1302,14 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         path.addCurve(to: CGPoint(x: width, y: height / 2),
                       controlPoint1: CGPoint(x: p4.x + p34vector.x, y: p4.y + p34vector.y),
                       controlPoint2: CGPoint(x: width, y: height / 2 - length))
-        
+
         p1.y = height - p1.y
         p2.y = height - p2.y
         p3.y = height - p3.y
         p4.y = height - p4.y
         p12vector.y = -p12vector.y
         p34vector.y = -p34vector.y
-        
+
         path.addCurve(to: p4,
                       controlPoint1: CGPoint(x: width, y: height / 2 + length),
                       controlPoint2: CGPoint(x: p4.x + p34vector.x, y: p4.y + p34vector.y))
@@ -1322,30 +1321,30 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         path.addCurve(to: CGPoint(x: 0, y: height / 2),
                       controlPoint1: CGPoint(x: p1.x - p12vector.x, y: p1.y - p12vector.y),
                       controlPoint2: CGPoint(x: 0, y: height / 2 + length))
-        
+
         return path
-        
+
     }
-    
+
     fileprivate func roundedRectPathForSelectorViewFromPercentage(_ percentage: CGFloat) -> UIBezierPath {
         return UIBezierPath(roundedRect: selectorView.bounds, cornerRadius: cornerRadius)
     }
-    
+
     fileprivate func leftSegmentIndexFromPercentage(_ percentage: CGFloat) -> Int {
         return Int(floorf(Float(percentage)))
     }
-    
+
     fileprivate func rightSegmentIndexFromPercentage(_ percentage: CGFloat) -> Int {
         return Int(floorf(Float(percentage))) + 1
     }
-    
+
     fileprivate func percentFromOffset(_ offset: CGPoint) -> CGFloat {
         var newOffset = offset
         newOffset.x /= leftSpacerView.frame.width
         newOffset.x *= CGFloat(segmentsCount - 1)
         return CGFloat(segmentsCount - 1) - newOffset.x
     }
-    
+
     fileprivate func offsetFromSegment(_ segment: Int) -> CGPoint {
         let intOffset = segmentsCount - segment - 1
         var offset = CGPoint(x: intOffset, y: 0)
@@ -1353,7 +1352,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         offset.x /= CGFloat(segmentsCount - 1)
         return offset
     }
-    
+
     fileprivate func segmentFromOffset(_ offset: CGPoint) -> Int {
         var newOffset = offset
         newOffset.x /= leftSpacerView.frame.width
@@ -1361,13 +1360,13 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         let intOffset = Int(roundf(Float(newOffset.x)))
         return segmentsCount - intOffset - 1
     }
-    
+
     fileprivate func segmentFromTapPoint(_ point: CGPoint) -> Int {
         var newPoint = point
         newPoint.x /= selectorView.frame.width
         return Int(floorf(Float(newPoint.x)))
     }
-    
+
     fileprivate func nearestSegmentOffsetFromOffset(_ offset: CGPoint) -> CGPoint {
         var newOffset = offset
         newOffset.x /= leftSpacerView.frame.width
@@ -1377,22 +1376,22 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         newOffset.x *= leftSpacerView.frame.width
         return newOffset
     }
-    
+
     fileprivate var spacerViewWidthMultiplier: CGFloat {
         return CGFloat(segmentsCount - 1) / 1.0 / CGFloat(segmentsCount)
     }
-    
+
     fileprivate var selectorViewWidthMultiplier: CGFloat {
         return 1.0 / CGFloat(segmentsCount)
     }
-    
+
     // MARK: - Liquid Shape Functions
-    
+
     fileprivate func F(_ x: CGFloat) -> CGFloat {
         return 192.862 * pow(x, 8) - 786.037 * pow(x, 7) + 1325.23 * pow(x, 6) - 1182.26 * pow(x, 5) + 587.962 * pow(x, 4) -
             157.531 * pow(x, 3) + 20.5313 * pow(x, 2) - 0.760045 * x
     }
-    
+
     fileprivate func normalizeToLength(point p: CGPoint, length len: CGFloat) -> CGPoint {
         let currentLength = sqrt(p.x * p.x + p.y * p.y)
         if currentLength == 0 {
@@ -1400,9 +1399,9 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         }
         return CGPoint(x: p.x / currentLength * len, y: p.y / currentLength * len)
     }
-    
+
     // MARK: - Reload
-    
+
     fileprivate func reinstallConstraints() {
         setupLeftSpacerViewConstraints()
         setupSelectorViewConstraints()
@@ -1410,12 +1409,12 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         setupScrollViewConstraints()
         setupGradientViewConstraints()
     }
-    
+
     fileprivate func removeOldConstraints() {
         self.removeConstraintsFromSubtree(Set(addedConstraintsToRemove))
         addedConstraintsToRemove.removeAll()
     }
-    
+
     fileprivate func reinstallViews() {
         for view in segmentViewContainers {
             view.removeFromSuperview()
@@ -1434,7 +1433,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
             setupGradientViewWithCount(count)
         }
     }
-    
+
     fileprivate func updateTransitionStyle() {
         for index in 0 ..< segmentsCount {
             resetSegmentViewAtIndex(index)
@@ -1442,10 +1441,10 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
         }
         selectSegmentAtIndex(currentSegment)
     }
-    
-    
+
+
     /// Reloads the segments of the segmented control.
-    open func reloadData() {
+    @objc open func reloadData() {
         guard let dataSource = dataSource else {
             print("Cannot reload segmented control without specified data source.")
             return
@@ -1464,7 +1463,7 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
             updateLayoutDependantValues()
         }
     }
-    
+
     fileprivate func updateLayoutDependantValues() {
         let savedCurrentSegment = currentSegment
         currentSegment = 0
@@ -1478,14 +1477,14 @@ public class SJFluidSegmentedControl: UIView, UIGestureRecognizerDelegate {
 // MARK: - UIScrollView Delegate Methods
 
 extension SJFluidSegmentedControl: UIScrollViewDelegate {
-    
+
     /// Tells the delegate when the scroll view is about to start scrolling the content.
     ///
     /// - Parameter scrollView: The scroll-view object that is about to scroll the content view.
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         delegate?.segmentedControl?(self, willChangeFromSegment: currentSegment)
     }
-    
+
     /// Tells the delegate when the user finishes scrolling the content.
     ///
     /// - Parameters:
@@ -1497,7 +1496,7 @@ extension SJFluidSegmentedControl: UIScrollViewDelegate {
             targetContentOffset.pointee = nearestSegmentOffsetFromOffset(targetContentOffset.pointee)
         }
     }
-    
+
     /// Tells the delegate that the scroll view has ended decelerating the scrolling movement.
     ///
     /// - Parameter scrollView: The scroll-view object that is decelerating the scrolling of the content view.
@@ -1507,7 +1506,7 @@ extension SJFluidSegmentedControl: UIScrollViewDelegate {
         }
         changeSegmentToSegmentAtIndex(segmentFromOffset(scrollView.contentOffset))
     }
-    
+
     /// Tells the delegate when a scrolling animation in the scroll view concludes.
     ///
     /// - Parameter scrollView: The scroll-view object that is performing the scrolling animation.
@@ -1515,7 +1514,7 @@ extension SJFluidSegmentedControl: UIScrollViewDelegate {
         changeSegmentToSegmentAtIndex(segmentFromOffset(scrollView.contentOffset))
         self.isUserInteractionEnabled = true
     }
-    
+
     /// Tells the delegate when the user scrolls the content view within the receiver.
     ///
     /// - Parameter scrollView: The scroll-view object that is performing the scrolling animation.
@@ -1527,7 +1526,7 @@ extension SJFluidSegmentedControl: UIScrollViewDelegate {
         let percent = percentFromOffset(scrollView.contentOffset)
         let leftIndex = leftSegmentIndexFromPercentage(percent)
         let rightIndex = rightSegmentIndexFromPercentage(percent)
-        
+
         let _ = changedViews.subtracting(changedViews.filter({ (number) -> Bool in
             if number == leftIndex {
                 return false
@@ -1549,5 +1548,5 @@ extension SJFluidSegmentedControl: UIScrollViewDelegate {
         }
         setupGradientWithPercent(factor, offsetFactor: percent / CGFloat(segmentsCount))
     }
-    
+
 }
